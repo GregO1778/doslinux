@@ -20,14 +20,14 @@ BUSYBOX_URL = https://www.busybox.net/downloads/binaries/$(BUSYBOX)-i686-linux-m
 SHELL:=$(shell which bash)
 
 .PHONY: all
-all: ## Default target which builds a DSLxxxB.ZIP file with doslinux
+all:		## Default target which builds a DSLxxxB.ZIP file with doslinux
 all: dist
 
 .PHONY: clean
-clean: ## Remove any doslinux binaries, object files, ZIP file prep
+clean:		## Remove any doslinux binaries, object files, ZIP file prep
 clean:
 	rm -rfv hdd.img doslinux.com init/init init/*.o deps/* \
-DSL.ZIP DOSLINUX/BZIMAGE DOSLINUX/INIT DOSLINUX/BUSYBOX \
+$(DSL_ZIP) DOSLINUX/BZIMAGE DOSLINUX/INIT DOSLINUX/BUSYBOX \
 DOSLINUX/DSL.COM DOSLINUX/ROOTFS/DOSLINUX.VER
 
 ultraclean: clean
@@ -36,7 +36,7 @@ ultraclean: clean
 $(HDD_BASE):
 	dd if=/dev/zero of=$@ bs=1M count=500 status=progress
 
-hdd.img: ## Old default target which requires an input HDD image $(HDD_BASE) and then modifies with mtools to include doslinux
+hdd.img:	## Old default target which requires an input HDD image $(HDD_BASE) and then modifies with mtools to include doslinux
 hdd.img: $(HDD_BASE) doslinux.com init/init $(LINUX_BZIMAGE) $(BUSYBOX_BIN)
 	cp -v $(HDD_BASE) hdd.img
 	MTOOLSRC=mtoolsrc mmd C:/doslinux
@@ -121,7 +121,7 @@ $(DSL_ZIP): DOSLINUX/INIT DOSLINUX/BUSYBOX DOSLINUX/DSL.COM
 ######################################################################
 
 .PHONY: showconfig
-showconfig: ## Shows the configuration variables for this Makefile and their current values
+showconfig:	## Shows the configuration variables for this Makefile and their current values
 showconfig: p-DOSLINUX p-DSL_ZIP p-CORES p-CPU p-ARCH p-CC p-NASM
 showconfig: p-STRIP p-LINUX p-LINUX_BZIMAGE p-LINUX_URL p-BUSYBOX
 showconfig: p-BUSYBOX_BIN p-BUSYBOX_URL p-HDD_BASE p-SHELL
@@ -147,6 +147,7 @@ p-%:
 .PHONY: p-*
 
 .PHONY: help
-help: ## This help target
+help:		## This help target
 #	@awk '/^[a-zA-Z0-9\-_+. ]*:[ ]*##/ { print; }' Makefile
-	@RE='^[a-zA-Z0-9\t ._+-]*:[a-zA-Z0-9 ._+-]*##' ; while read line ; do [[ "$$line" =~ $$RE ]] && echo "$$line" ; done <Makefile ; RE=''
+#	@RE='^[a-zA-Z0-9 .-_+]*:[a-zA-Z0-9 .-_+]*##' ; while read line ; do [[ "$$line" =~ $$RE ]] && echo "$$line" ; done <Makefile ; RE=''
+	@RE='^[a-zA-Z0-9 .-_+]*:.*##' ; while read line ; do [[ "$$line" =~ $$RE ]] && echo "$$line" ; done <Makefile ; RE=''
