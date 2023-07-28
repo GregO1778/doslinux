@@ -1,0 +1,5 @@
+TARGET = i686-linux-musl
+OUTPUT = /usr/local
+COMMON_CONFIG += CFLAGS="-g0 -Os -static --static"
+COMMON_CONFIG += CXXFLAGS="-g0 -Os -static --static"
+COMMON_CONFIG += LDFLAGS="-s"
