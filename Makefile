@@ -17,7 +17,7 @@ BUSYBOX_BIN = deps/busybox
 LINUX_URL = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$(LINUX).tar.gz
 BUSYBOX_URL = https://www.busybox.net/downloads/binaries/$(BUSYBOX)-i686-linux-musl/busybox
 
-SHELL:=$(shell which bash)
+SHELL := $(shell which bash)
 
 .PHONY: all
 all:		## Default target which builds a DSLxxxB.ZIP file with doslinux
