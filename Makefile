@@ -55,7 +55,10 @@ init/init: init/init.o init/vm86.o init/panic.o init/kbd.o init/term.o
 init/%.o: init/%.c init/*.h /usr/local/bin/$(CC)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-deps/musl-cross-make/Makefile:
+deps/:
+	mkdir -pv $@
+
+deps/musl-cross-make/Makefile: deps/
 	cd deps && \
 	git clone --depth=1 https://github.com/richfelker/musl-cross-make.git
 
