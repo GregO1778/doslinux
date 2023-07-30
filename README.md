@@ -9,7 +9,7 @@ A WSL alternative for users who prefer an MS-DOS environment. DOS Subsystem for 
 
 * doslinux depends on several packages.  In Ubuntu 22.04, run
 
-`sudo apt install build-essential git gcc make nano flex bison libssl-dev mtools nasm zip unzip`
+`sudo apt install build-essential git gcc make nano flex bison libssl-dev mtools nasm zip unzip bc`
 
 * The included `Makefile` will download `gcc`, `binutils`, `busybox` (1.35.0), and `https://github.com/richfelker/musl-cross-make` for you.
 
