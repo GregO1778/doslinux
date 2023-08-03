@@ -3,7 +3,6 @@ ARCH ?= $(CPU)-linux-musl
 CC = $(ARCH)-gcc
 CFLAGS ?= -m32 -static -Os -Wall -Wextra
 NASM ?= nasm
-STRIP ?= $(ARCH)-strip
 CORES ?= $(shell nproc)
 LINUX ?= 5.8.9
 BUSYBOX ?= 1.35.0
@@ -22,6 +21,8 @@ SHELL := $(shell which bash)
 .PHONY: all
 all:		## Default target which builds a DSLxxxB.ZIP file with doslinux
 all: dist
+	# beep when done
+	@for Z in {1..3} ; do ( echo -en "\a" && sleep 0.1 ) ; done
 
 .PHONY: clean
 clean:		## Remove any doslinux binaries, object files, ZIP file prep
@@ -80,6 +81,13 @@ deps/musl-cross-make/build/local/$(ARCH)/obj_gcc/gcc/xgcc: deps/musl-cross-make/
 	make -j$(CORES)
 
 /usr/local/bin/$(CC): deps/musl-cross-make/build/local/$(ARCH)/obj_gcc/gcc/xgcc
+	@echo " ## # # ##  ###"
+	@echo "#   # # # # # #"
+	@echo " #  # # # # # #"
+	@echo "  # # # # # # #"
+	@echo "##  ### ##  ###"
+	@echo
+	@for Z in {1..3} ; do ( echo -en "\a" && sleep 0.1 ) ; done
 	cd deps/musl-cross-make && \
 	sudo make -j$(CORES) install
 
@@ -125,7 +133,7 @@ $(DSL_ZIP): DOSLINUX/INIT DOSLINUX/BUSYBOX DOSLINUX/DSL.COM
 .PHONY: showconfig
 showconfig:	## Shows the configuration variables for this Makefile and their current values
 showconfig: p-DOSLINUX p-DSL_ZIP p-CORES p-CPU p-ARCH p-CC p-NASM
-showconfig: p-STRIP p-LINUX p-LINUX_BZIMAGE p-LINUX_URL p-BUSYBOX
+showconfig: p-LINUX p-LINUX_BZIMAGE p-LINUX_URL p-BUSYBOX
 showconfig: p-BUSYBOX_BIN p-BUSYBOX_URL p-HDD_BASE p-SHELL
 
 .PHONY: gstat
@@ -150,6 +158,4 @@ p-%:
 
 .PHONY: help
 help:		## This help target
-#	@awk '/^[a-zA-Z0-9\-_+. ]*:[ ]*##/ { print; }' Makefile
-#	@RE='^[a-zA-Z0-9 .-_+]*:[a-zA-Z0-9 .-_+]*##' ; while read line ; do [[ "$$line" =~ $$RE ]] && echo "$$line" ; done <Makefile ; RE=''
 	@RE='^[a-zA-Z0-9 .-_+]*:.*##' ; while read line ; do [[ "$$line" =~ $$RE ]] && echo "$$line" ; done <Makefile ; RE=''
