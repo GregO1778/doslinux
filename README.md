@@ -27,6 +27,8 @@ In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4
 
 * You can unzip roughly 6.5MB `DSLxxxB.ZIP` zipfile onto a DOS system, like MS-DOS or FreeDOS, and then start doslinux by running a command like `C:\DSL\dsl` or `C:\DSL\dsl sh` (giving you a shell into the loaded Linux).
 
+* Also try running `make help`, `make showconfig` if you run into configuration issues.
+
 ## Old Build Instructions
 
 * You will need a cross toolchain targeting `i386-linux-musl` on `PATH`.
