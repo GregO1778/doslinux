@@ -29,10 +29,10 @@ clean:		## Remove any doslinux binaries, object files, ZIP file prep
 clean:
 	rm -rfv hdd.img doslinux.com init/init init/*.o deps/* \
 $(DSL_ZIP) DOSLINUX/BZIMAGE DOSLINUX/INIT DOSLINUX/BUSYBOX \
-DOSLINUX/DSL.COM DOSLINUX/ROOTFS/DOSLINUX.VER
+DOSLINUX/DSL.COM
 
 ultraclean: clean
-	sudo rm -v /usr/local/bin/$(ARCH)-*
+	sudo rm -rfv /usr/local/bin/$(ARCH)-* /usr/local/lib/gcc/$(ARCH) /usr/local/$(ARCH)
 
 $(HDD_BASE):
 	dd if=/dev/zero of=$@ bs=1M count=500 status=progress
