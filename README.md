@@ -7,17 +7,27 @@ A WSL alternative for users who prefer an MS-DOS environment. DOS Subsystem for 
 ## Builing
 * Building doslinux will need about 5GB of disk space.
 
-* doslinux depends on several packages.  In Ubuntu 22.04, run
+* doslinux depends on several packages.  In Fedora 38, run
+
+`sudo dnf install wget git patch bzip2 gcc glibc glibc-static g++ libstdc++ libstdc++-static make binutils flex bison openssl-devel mtools nasm zip unzip bc`
+
+In Ubuntu 22.04, run
 
 `sudo apt install build-essential git gcc make nano flex bison libssl-dev mtools nasm zip unzip bc`
+
+In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4 2.4GHz hypervisor (a 9 year old server in 2023), full builds take about 15 miniutes.
 
 * The included `Makefile` will download `gcc`, `binutils`, `busybox` (1.35.0), and `https://github.com/richfelker/musl-cross-make` for you.
 
 * The included `Makefile` will then build a `i386-linux-musl` cross-compiler and Linux 5.8.9 kernel for you.
 
-* Adjust the variables at the top of `Makefile` if you would like to use a higher/lower `$(ARCH)` or different kernel.
+* Adjust the variables at the top of `Makefile` if you would like to use a higher/lower `$(ARCH)` or different kernel. (NOTE: this is quite working correctly yet)
 
-* Running `make` is an alias for `make dist` which will result in a `DSLxxxB.ZIP` file containing `doslinux`, `init`, a Linux `bzImage` kernel, and `busybox`.  After the completion of building the cross-compiler, `sudo make -j$(CORES) install` is executed to put the cross-compiler toolchain in your `/usr/local/` path.
+* Running `make` is an alias for `make dist` which will result in a `DSLxxxB.ZIP` file containing `doslinux`, `init`, a Linux `bzImage` kernel, and `busybox`.
+
+* After the completion of building the cross-compiler, `sudo make -j$(CORES) install` is executed to put the cross-compiler toolchain in your `/usr/local/` path.
+
+* You can unzip roughly 6.5MB `DSLxxxB.ZIP` zipfile onto a DOS system, like MS-DOS or FreeDOS, and then start doslinux by running a command like `C:\DSL\dsl` or `C:\DSL\dsl sh` (giving you a shell into the loaded Linux).
 
 ## Old Build Instructions
 
