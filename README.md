@@ -21,7 +21,7 @@ In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4
 
 * The included `Makefile` will then build a `i386-linux-musl` cross-compiler and Linux 5.8.9 kernel for you.
 
-* Adjust the variables at the top of `Makefile` if you would like to use a higher/lower `$(ARCH)` or different kernel. (NOTE: this is quite working correctly yet)
+* Adjust the variables at the top of `Makefile` if you would like to use a higher/lower `$(ARCH)` or different kernel. (NOTE: this isn't quite working correctly yet)
 
 * Running `make` is an alias for `make dist` which will result in a `DSLxxxB.ZIP` file containing `doslinux`, `init`, a Linux `bzImage` kernel, and `busybox`.
 
