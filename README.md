@@ -5,7 +5,9 @@ A WSL alternative for users who prefer an MS-DOS environment. DOS Subsystem for 
 ![](https://user-images.githubusercontent.com/179065/178898715-7e30135c-7afd-4f37-83cc-cf49a4d46d79.gif)
 
 ## Builing
-* doslinux depends on several packages.  In Fedora 38, run
+* doslinux depends on several packages.
+
+In Fedora 38, run
 
 `sudo dnf install wget git patch bzip2 gcc glibc glibc-static g++ libstdc++ libstdc++-static make binutils flex bison openssl-devel mtools nasm zip unzip bc`
 
@@ -25,7 +27,7 @@ In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4
 
 * After the completion of building the cross-compiler, `sudo make -j$(CORES) install` is executed to put the cross-compiler toolchain in your `/usr/local/` path.
 
-* You can unzip roughly 6.5MB `DSLxxxB.ZIP` zipfile onto a DOS system, like MS-DOS or FreeDOS, and then start doslinux by running a command like `C:\DSL\dsl` or `C:\DSL\dsl sh` (giving you a shell into the loaded Linux).
+* You can unzip a roughly 6.5MB `DSLxxxB.ZIP` zipfile onto a DOS system, like MS-DOS or FreeDOS, and then start doslinux by running a command like `C:\DOSLINUX\dsl` or `C:\DOSLINUX\dsl sh` (giving you a shell into the loaded Linux).
 
 * Also try running `make help`, `make showconfig` if you run into configuration issues.
 
