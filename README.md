@@ -29,6 +29,8 @@ In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4
 
 * Also try running `make help`, `make showconfig` if you run into configuration issues.
 
+* Run `make clean` to clean up the local git repo.  Run `make ultraclean` to also get rid of the installation of the cross compiler toolchain in `/usr/local`.
+
 ## Old Build Instructions
 
 * You will need a cross toolchain targeting `i386-linux-musl` on `PATH`.
