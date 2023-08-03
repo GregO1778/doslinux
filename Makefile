@@ -88,14 +88,13 @@ deps/linux-$(LINUX).tar.gz:
 
 deps/linux-$(LINUX)/Makefile: deps/linux-$(LINUX).tar.gz
 	tar zxvf $< -C deps/
-	touch deps/linux-$(LINUX)/Makefile
 
 deps/linux-$(LINUX)/.config: deps/linux-$(LINUX)/Makefile linux-config-doslinux
 	cp -v linux-config-doslinux $@
 
 $(LINUX_BZIMAGE): deps/linux-$(LINUX)/.config
 	cd deps/linux-$(LINUX) && \
-	make -j$(CORES)
+	make -j$(CORES) ARCH=x86 CROSS_COMPILE=$(ARCH)-
 
 $(BUSYBOX_BIN):
 	wget -O $@ $(BUSYBOX_URL)
