@@ -5,8 +5,6 @@ A WSL alternative for users who prefer an MS-DOS environment. DOS Subsystem for 
 ![](https://user-images.githubusercontent.com/179065/178898715-7e30135c-7afd-4f37-83cc-cf49a4d46d79.gif)
 
 ## Builing
-* Building doslinux will need about 5GB of disk space.
-
 * doslinux depends on several packages.  In Fedora 38, run
 
 `sudo dnf install wget git patch bzip2 gcc glibc glibc-static g++ libstdc++ libstdc++-static make binutils flex bison openssl-devel mtools nasm zip unzip bc`
@@ -15,7 +13,7 @@ In Ubuntu 22.04, run
 
 `sudo apt install build-essential git gcc make nano flex bison libssl-dev mtools nasm zip unzip bc`
 
-In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4 2.4GHz hypervisor (a 9 year old server in 2023), full builds take about 15 miniutes.
+In a VM configured for 16 CPUs, 16GB RAM, hosted on a dual Intel Xeon E5-2680 v4 2.4GHz hypervisor (a 9 year old server in 2023), full builds take about 10-15 miniutes and will consume about 4GB of disk space.
 
 * The included `Makefile` will download `gcc`, `binutils`, `busybox` (1.35.0), and `https://github.com/richfelker/musl-cross-make` for you.
 
