@@ -14,7 +14,8 @@ LINUX_BZIMAGE = deps/linux-$(LINUX)/arch/x86/boot/bzImage
 BUSYBOX_BIN = deps/busybox
 
 LINUX_URL = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$(LINUX).tar.gz
-BUSYBOX_URL = https://www.busybox.net/downloads/binaries/$(BUSYBOX)-i686-linux-musl/busybox
+#BUSYBOX_URL = https://www.busybox.net/downloads/binaries/$(BUSYBOX)-i686-linux-musl/busybox
+BUSYBOX_URL = https://www.busybox.net/downloads/busybox-$(BUSYBOX).tar.bz2
 
 SHELL := $(shell which bash)
 
@@ -59,7 +60,7 @@ init/%.o: init/%.c init/*.h /usr/local/bin/$(CC)
 deps/:
 	mkdir -pv $@
 
-deps/musl-cross-make/Makefile: deps/
+deps/musl-cross-make: deps/
 	cd deps && \
 	git clone --depth=1 https://github.com/richfelker/musl-cross-make.git
 
@@ -104,8 +105,21 @@ $(LINUX_BZIMAGE): deps/linux-$(LINUX)/.config
 	cd deps/linux-$(LINUX) && \
 	make -j$(CORES) ARCH=x86 CROSS_COMPILE=$(ARCH)-
 
-$(BUSYBOX_BIN):
+deps/busybox-$(BUSYBOX).tar.bz2:
 	wget -O $@ $(BUSYBOX_URL)
+
+deps/busybox-$(BUSYBOX): deps/busybox-$(BUSYBOX).tar.bz2
+	tar jxvf $< -C deps/
+
+deps/busybox-$(BUSYBOX)/.config: deps/busybox-$(BUSYBOX)
+	cp -v busybox-config $@
+
+#$(BUSYBOX_BIN):
+#	wget -O $@ $(BUSYBOX_URL)
+$(BUSYBOX_BIN): deps/busybox-$(BUSYBOX)/.config
+	cd deps/busybox-$(BUSYBOX) && \
+	make -j$(CORES) ARCH=x86 CROSS_COMPILE=$(ARCH)-
+	cp -v deps/busybox-$(BUSYBOX)/busybox $@
 
 .PHONY: dist
 dist: $(DSL_ZIP)
@@ -124,8 +138,8 @@ DOSLINUX/BZIMAGE: $(LINUX_BZIMAGE)
 DOSLINUX/BUSYBOX: $(BUSYBOX_BIN)
 	cp -v $< $@
 
-$(DSL_ZIP): DOSLINUX/ROOTFS/DOSLINUX.VER DOSLINUX/BZIMAGE
-$(DSL_ZIP): DOSLINUX/INIT DOSLINUX/BUSYBOX DOSLINUX/DSL.COM
+$(DSL_ZIP): DOSLINUX/ROOTFS/DOSLINUX.VER DOSLINUX/BUSYBOX
+$(DSL_ZIP): DOSLINUX/INIT DOSLINUX/DSL.COM DOSLINUX/BZIMAGE
 	zip -9vvr $@ DOSLINUX/
 
 ######################################################################
