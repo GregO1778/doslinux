@@ -60,7 +60,8 @@ init/%.o: init/%.c init/*.h /usr/local/bin/$(CC)
 deps/:
 	mkdir -pv $@
 
-deps/musl-cross-make: deps/
+#deps/musl-cross-make: deps/
+deps/musl-cross-make deps/musl-cross-make/Makefile: deps/
 	cd deps && \
 	git clone --depth=1 https://github.com/richfelker/musl-cross-make.git
 
