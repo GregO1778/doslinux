@@ -63,7 +63,7 @@ deps/:
 #deps/musl-cross-make: deps/
 deps/musl-cross-make deps/musl-cross-make/Makefile: deps/
 	cd deps && \
-	git clone --depth=1 https://github.com/richfelker/musl-cross-make.git
+	git clone --depth=1 --branch v0.9.9 https://github.com/richfelker/musl-cross-make.git
 
 musl-cross-make-config-doslinux: Makefile
 	echo "TARGET = $(ARCH)" > $@
